@@ -80,4 +80,63 @@ class CrudComponent extends Component {
 
         return $result;
     }
+
+    public function preparelistModelFields($datas = null) {
+        $result = [];
+        $columns = $this->_model->schema()->columns();
+
+        if (gettype($datas) != 'array') {
+            $datas = [$datas];
+        }
+
+        foreach ($datas as $data) {
+            $_result = [];
+            foreach ($columns as $column) {
+                
+                if ($column != 'created' && $column != 'modified') {
+                    $columnType = $this->_model->schema()->getColumnType($column);
+                    switch ($columnType) {
+                        case 'integer':
+                            $_result[] = [
+                                'lable' => $column,
+                                'type' => 'number',
+                                'value' => !empty($data[$column]) ? $data[$column] : 0,
+                                'help' => ''
+                            ];
+                            break;
+
+                        case 'timestamp':
+                            $_result[] = [
+                                'lable' => $column,
+                                'type' => 'date',
+                                'value' => !empty($data[$column]) ? $data[$column] : null,
+                                'help' => ''
+                            ];
+                            break;
+
+                        case 'tinyinteger':
+                            $_result[] = [
+                                'lable' => $column,
+                                'type' => 'checkbox',
+                                'value' => !empty($data[$column]) ? $data[$column] : 0,
+                                'help' => ''
+                            ];
+                            break;
+                        
+                        default:
+                            $_result[] = [
+                                'lable' => $column,
+                                'type' => 'text',
+                                'value' => !empty($data[$column]) ? $data[$column] : '',
+                                'help' => ''
+                            ];
+                            break;
+                    }
+                }               
+            }
+            $result[] = $_result;
+        }
+
+        return $result;
+    }
 }

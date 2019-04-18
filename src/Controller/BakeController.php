@@ -132,9 +132,8 @@ abstract class BakeController extends AppController {
             $this->Flash->error($crudResult['message']);
         } else {
             $this->Crud->setModel($this->_modelName);
-            $prepareFields = $this->Crud->prepareModelFields($crudResult['data']);
+            $prepareFields = $this->Crud->preparelistModelFields($crudResult['data']);
         	$this->set('fields', $prepareFields);
-            Log::info($crudResult['paging']);
             $this->set('paging', $crudResult['paging']);
         }
     }

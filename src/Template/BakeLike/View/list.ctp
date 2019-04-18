@@ -19,16 +19,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<<?='?'?>php foreach($fields as $field):?>
-					<<?='?'?>php
-						if($field['lable'] == 'id') {
-							$id = $field['value'];
-						}
-					?>
+				<<?='?'?>php foreach($fields as $item):?>
 					<tr class="gradeA">
-						<<?='?'?>php foreach($field as $title => $value):?>
-							<td><<?='?'?>= $value;?></td>														
-						<<?='?'?>php endforeach;?>
+						<<?='?'?>php foreach($item as $field):?>
+							<<?='?'?>php
+								if($field['lable'] == 'id') {
+									$id = $field['value'];
+								}
+							?>
+							<td><<?='?'?>= $field['value'];?></td>
+						<<?='?'?>php endforeach;?>	
 						<td class="actions">
 							<a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
 							<a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
