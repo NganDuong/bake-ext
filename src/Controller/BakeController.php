@@ -133,6 +133,7 @@ abstract class BakeController extends AppController {
         } else {
             $this->Crud->setModel($this->_modelName);
             $prepareFields = $this->Crud->preparelistModelFields($crudResult['data']);
+            $this->set('route', strtolower($this->_modelName));
         	$this->set('fields', $prepareFields);
             $this->set('paging', $crudResult['paging']);
         }
